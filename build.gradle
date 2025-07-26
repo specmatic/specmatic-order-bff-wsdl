@@ -66,7 +66,7 @@ dependencies {
     testImplementation "io.specmatic:junit5-support:${specmatic_version}"
     testImplementation "io.specmatic:specmatic-core:${specmatic_version}"
     testImplementation 'org.assertj:assertj-core:3.27.3'
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.13.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.13.4'
 
     // https://mvnrepository.com/artifact/org.glassfish.hk2/osgi-resource-locator
     implementation group: 'org.glassfish.hk2', name: 'osgi-resource-locator', version: '3.0.0'
