@@ -65,7 +65,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation "io.specmatic:junit5-support:${specmatic_version}"
     testImplementation "io.specmatic:specmatic-core:${specmatic_version}"
-    testImplementation 'org.assertj:assertj-core:3.27.3'
+    testImplementation 'org.assertj:assertj-core:3.27.4'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.13.4'
 
     // https://mvnrepository.com/artifact/org.glassfish.hk2/osgi-resource-locator
