@@ -15,7 +15,7 @@ class ContractTests : SpecmaticContractTest {
         private const val APPLICATION_HOST = "localhost"
         private const val APPLICATION_PORT = "8080"
         private const val WSDL_STUB_HOST = "localhost"
-        private const val WSDL_STUB_PORT = 8090
+        private const val WSDL_STUB_PORT = 9000
 
         @JvmStatic
         @BeforeAll

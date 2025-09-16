@@ -220,7 +220,7 @@
     <!-- Service Definition -->
     <service name="OrderAPIService">
         <port name="OrderAPIPort" binding="tns:OrderAPIBinding">
-            <soap:address location="http://localhost:8090/"/>
+            <soap:address location="http://localhost:9000/"/>
         </port>
     </service>
 </definitions>

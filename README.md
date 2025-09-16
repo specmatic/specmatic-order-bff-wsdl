@@ -58,19 +58,19 @@ Once you run the test the report should be available at `build/reports/specmatic
 ## Running the Specmatic WSDL Mock Server from Command Line using Docker
 
 ```shell
-docker run -p "8090:9000" -v "$(pwd):/usr/src/app" specmatic/specmatic stub "./wsdls/order_api.wsdl"
+docker run -p "9000:9000" -v "$(pwd):/usr/src/app" specmatic/specmatic stub "./wsdls/order_api.wsdl"
 ```
 
 OR
 
 ```shell
-java -jar specmatic.jar stub --port 8090 ./wsdls/order_api.wsdl
+java -jar specmatic.jar stub --port 9000 ./wsdls/order_api.wsdl
 ```
 
 Now we can verify if the stub server is running
 1. Open SOAPUI
 2. Import the wsdl in `wsdls/order_api.wsdl`
-3. Remember to set the endpoint URL to host `localhost` and port `8090`
+3. Remember to set the endpoint URL to host `localhost` and port `9000`
 4. Send the following request using SOAPUI:
 
 ```xml
@@ -103,7 +103,7 @@ Please refer to documentation for format of the [example file](https://docs.spec
 You can also run the same WSDL spec as a test against the mock server.
 
 ```shell
-docker run --net host -v "$(pwd):/usr/src/app" znsio/specmatic test "./wsdls/order_api.wsdl" --port 8090
+docker run --net host -v "$(pwd):/usr/src/app" specmatic/specmatic test "./wsdls/order_api.wsdl" --port 9000
 ```
 
 The HTML API Coverage Report will be available at `build/reports/specmatic/html/index.html`.
