@@ -58,7 +58,7 @@ Once you run the test the report should be available at `build/reports/specmatic
 ## Running the Specmatic WSDL Mock Server from Command Line using Docker
 
 ```shell
-docker run -p "8090:9000" -v "$(pwd):/usr/src/app" znsio/specmatic stub "./wsdls/order_api.wsdl"
+docker run -p "8090:9000" -v "$(pwd):/usr/src/app" specmatic/specmatic stub "./wsdls/order_api.wsdl"
 ```
 
 OR
