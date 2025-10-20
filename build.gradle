@@ -11,10 +11,10 @@ plugins {
 
 repositories {
     mavenLocal()
-    maven {
-        url = uri("lib")
-    }
     mavenCentral()
+    maven {
+        url "https://repo.specmatic.io/releases"
+    }
 }
 
 wsdl2java {
@@ -45,7 +45,7 @@ jacocoTestReport {
     }
 }
 
-def specmatic_version = "2.14.2-SNAPSHOT"
+def specmatic_version = "2.27.1"
 
 dependencies {
     implementation platform('org.springframework.boot:spring-boot-dependencies:3.4.0')
@@ -67,6 +67,7 @@ dependencies {
     testImplementation "io.specmatic:specmatic-core:${specmatic_version}"
     testImplementation 'org.assertj:assertj-core:3.24.2'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.6.0'
+    testImplementation 'org.testcontainers:junit-jupiter:1.21.3'
 
     // https://mvnrepository.com/artifact/org.glassfish.hk2/osgi-resource-locator
     implementation group: 'org.glassfish.hk2', name: 'osgi-resource-locator', version: '2.4.0'

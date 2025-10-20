@@ -3,7 +3,7 @@
 ## Stub out the downstream dependency
 
 ```shell
-docker run -v "$(pwd)/wsdls:/wsdls" -v "$(pwd)/wsdls/order_api_examples:/order_api_examples" -p 8090:9000 znsio/specmatic stub "/wsdls/order_api.wsdl"
+docker run -v "$(pwd)/wsdls:/wsdls" -v "$(pwd)/wsdls/order_api_examples:/order_api_examples" -p 8090:9000 specmatic/specmatic stub "/wsdls/order_api.wsdl"
 ```
 
 OR
