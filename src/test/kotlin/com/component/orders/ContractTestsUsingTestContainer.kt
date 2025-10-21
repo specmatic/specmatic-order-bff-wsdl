@@ -4,8 +4,8 @@ import com.github.dockerjava.api.model.ExposedPort
 import com.github.dockerjava.api.model.PortBinding
 import com.github.dockerjava.api.model.Ports
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.condition.EnabledIf
 import org.springframework.boot.test.context.SpringBootTest
 import org.testcontainers.containers.BindMode
 import org.testcontainers.containers.GenericContainer
@@ -15,12 +15,15 @@ import org.testcontainers.junit.jupiter.Testcontainers
 
 @Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-@Disabled
+@EnabledIf(value = "isNonCIOrLinux", disabledReason = "Run only on Linux in CI; all platforms allowed locally")
 class ContractTestsUsingTestContainer {
     companion object {
-        private const val APPLICATION_HOST = "host.docker.internal"
+        private const val APPLICATION_HOST = "localhost"
         private const val APPLICATION_PORT = 8080
         private const val HTTP_STUB_PORT = 9000
+
+        @JvmStatic
+        fun isNonCIOrLinux(): Boolean = System.getenv("CI") != "true" || System.getProperty("os.name").lowercase().contains("linux")
 
         @Container
         private val stubContainer: GenericContainer<*> =
@@ -67,6 +70,7 @@ class ContractTestsUsingTestContainer {
                     "/usr/src/app/build/reports/specmatic",
                     BindMode.READ_WRITE,
                 ).waitingFor(Wait.forLogMessage(".*Tests run:.*", 1))
+                .withNetworkMode("host")
                 .withLogConsumer { print(it.utf8String) }
     }
 
