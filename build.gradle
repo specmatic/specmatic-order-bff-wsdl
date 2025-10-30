@@ -61,7 +61,7 @@ dependencies {
     implementation 'javax.xml.soap:javax.xml.soap-api:1.4.0'
     implementation 'com.sun.xml.messaging.saaj:saaj-impl:3.0.4'
     implementation 'org.springframework.ws:spring-ws-core:4.1.1'
-    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.2'
+    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.4'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation "io.specmatic:junit5-support:${specmatic_version}"
     testImplementation "io.specmatic:specmatic-core:${specmatic_version}"
