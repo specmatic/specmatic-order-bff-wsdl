@@ -1,11 +1,12 @@
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id 'java'
-    id 'org.jetbrains.kotlin.jvm' version '2.2.10'
-    id 'org.springframework.boot' version '3.5.5'
-    id 'org.jetbrains.kotlin.plugin.spring' version '2.2.10'
     id 'jacoco'
+    id 'org.jetbrains.kotlin.jvm' version '2.2.21'
+    id 'org.springframework.boot' version '3.5.7'
+    id 'org.jetbrains.kotlin.plugin.spring' version '2.2.21'
     id("com.github.bjornvester.wsdl2java") version "2.0.2"
 }
 
@@ -19,22 +20,21 @@ repositories {
 
 wsdl2java {
     cxfVersion.set("4.0.2")
-
     wsdlDir.set(layout.projectDirectory.dir("wsdls"))
     includes.set(
         [
             "order_api.wsdl", "product_bff_search.wsdl"
         ]
     )
-
     generatedSourceDir.set(layout.projectDirectory.dir("src/generated/wsdl2java"))
-
     verbose = true
 }
 
 tasks.withType(KotlinCompile).configureEach {
     kotlinOptions {
         jvmTarget = "17"
+        compilerOptions.languageVersion.set(KotlinVersion.KOTLIN_2_2)
+        compilerOptions.apiVersion.set(KotlinVersion.KOTLIN_2_2)
     }
 }
 
@@ -45,34 +45,33 @@ jacocoTestReport {
     }
 }
 
-def specmatic_version = "2.27.1"
+def specmatic_version = "2.28.1"
 
 dependencies {
-    implementation platform('org.springframework.boot:spring-boot-dependencies:3.5.5')
+    implementation platform('org.springframework.boot:spring-boot-dependencies:3.5.7')
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
-    implementation 'jakarta.activation:jakarta.activation-api:2.1.3'
-    implementation 'org.glassfish.jaxb:jaxb-runtime:4.0.5'
-    implementation 'jakarta.activation:jakarta.activation-api:2.1.3'
-    implementation 'javax.validation:validation-api:2.0.1.Final'
+    implementation 'jakarta.activation:jakarta.activation-api:2.1.4'
+    implementation 'org.glassfish.jaxb:jaxb-runtime:4.0.6'
+    implementation 'jakarta.validation:jakarta.validation-api:3.1.1'
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
     implementation 'jakarta.xml.soap:jakarta.xml.soap-api:3.0.2'
-    implementation 'javax.xml.soap:javax.xml.soap-api:1.4.0'
+    implementation 'jakarta.xml.soap:jakarta.xml.soap-api:3.0.2'
     implementation 'com.sun.xml.messaging.saaj:saaj-impl:3.0.4'
-    implementation 'org.springframework.ws:spring-ws-core:4.1.1'
-    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.2'
+    implementation 'org.springframework.ws:spring-ws-core:4.1.2'
+    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.4'
+    // https://mvnrepository.com/artifact/org.glassfish.hk2/osgi-resource-locator
+    implementation group: 'org.glassfish.hk2', name: 'osgi-resource-locator', version: '3.0.0'
+    implementation 'com.sun.xml.ws:jaxws-ri:4.0.3'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation "io.specmatic:junit5-support:${specmatic_version}"
     testImplementation "io.specmatic:specmatic-core:${specmatic_version}"
     testImplementation 'org.assertj:assertj-core:3.27.6'
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.14.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter:6.0.1'
+    testImplementation 'org.junit.platform:junit-platform-launcher:6.0.1'
     testImplementation 'org.testcontainers:junit-jupiter:1.21.3'
-
-    // https://mvnrepository.com/artifact/org.glassfish.hk2/osgi-resource-locator
-    implementation group: 'org.glassfish.hk2', name: 'osgi-resource-locator', version: '3.0.0'
-
-    implementation 'com.sun.xml.ws:jaxws-ri:4.0.3'
 }
 
 sourceSets {
