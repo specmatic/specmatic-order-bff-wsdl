@@ -56,15 +56,14 @@ Please refer to [ContractTest.kt](src/test/kotlin/com/component/orders/ContractT
 Once you run the test the report should be available at `build/reports/specmatic/html/index.html`.
 
 ## Running the Specmatic WSDL Mock Server from Command Line using Docker
-
+1. On Unix and PowerShell terminals:
 ```shell
 docker run -p "9000:9000" -v "$(pwd):/usr/src/app" specmatic/specmatic stub "./wsdls/order_api.wsdl"
 ```
 
-OR
-
+2. On Windows CMD Prompt:
 ```shell
-java -jar specmatic.jar stub --port 9000 ./wsdls/order_api.wsdl
+docker run -p "9000:9000" -v "%cd%:/usr/src/app" specmatic/specmatic stub "./wsdls/order_api.wsdl"
 ```
 
 Now we can verify if the stub server is running
@@ -102,8 +101,14 @@ Please refer to documentation for format of the [example file](https://docs.spec
 
 You can also run the same WSDL spec as a test against the mock server.
 
+1. On Unix and PowerShell terminals:
 ```shell
 docker run --net host -v "$(pwd):/usr/src/app" specmatic/specmatic test "./wsdls/order_api.wsdl" --port 9000
+```
+
+2. On Windows CMD Prompt:
+```shell
+docker run --net host -v "%cd%:/usr/src/app" specmatic/specmatic test "./wsdls/order_api.wsdl" --port 9000
 ```
 
 The HTML API Coverage Report will be available at `build/reports/specmatic/html/index.html`.
