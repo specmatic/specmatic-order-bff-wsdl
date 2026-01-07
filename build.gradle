@@ -69,8 +69,8 @@ dependencies {
     testImplementation "io.specmatic:junit5-support:${specmatic_version}"
     testImplementation "io.specmatic:specmatic-core:${specmatic_version}"
     testImplementation 'org.assertj:assertj-core:3.27.6'
-    testImplementation 'org.junit.jupiter:junit-jupiter:6.0.1'
-    testImplementation 'org.junit.platform:junit-platform-launcher:6.0.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter:6.0.2'
+    testImplementation 'org.junit.platform:junit-platform-launcher:6.0.2'
     testImplementation 'org.testcontainers:junit-jupiter:1.21.4'
 }
 
