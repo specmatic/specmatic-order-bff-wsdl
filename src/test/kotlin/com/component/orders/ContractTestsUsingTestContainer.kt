@@ -29,7 +29,7 @@ class ContractTestsUsingTestContainer {
         private val stubContainer: GenericContainer<*> =
             GenericContainer("specmatic/specmatic")
                 .withCommand(
-                    "virtualize",
+                    "mock",
                     "--examples=examples",
                     "--port=$HTTP_STUB_PORT",
                 ).withCreateContainerCmdModifier { cmd ->

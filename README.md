@@ -58,12 +58,12 @@ Once you run the test the report should be available at `build/reports/specmatic
 ## Running the Specmatic WSDL Mock Server from Command Line using Docker
 1. On Unix and PowerShell terminals:
 ```shell
-docker run -p "9000:9000" -v "$(pwd):/usr/src/app" specmatic/specmatic stub "./wsdls/order_api.wsdl"
+docker run -p "9000:9000" -v "$(pwd):/usr/src/app" specmatic/specmatic mock "./wsdls/order_api.wsdl"
 ```
 
 2. On Windows CMD Prompt:
 ```shell
-docker run -p "9000:9000" -v "%cd%:/usr/src/app" specmatic/specmatic stub "./wsdls/order_api.wsdl"
+docker run -p "9000:9000" -v "%cd%:/usr/src/app" specmatic/specmatic mock "./wsdls/order_api.wsdl"
 ```
 
 Now we can verify if the stub server is running
