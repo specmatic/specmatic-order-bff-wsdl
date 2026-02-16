@@ -1,6 +1,57 @@
-version: 2
-contracts:
-  - provides:
-      - "wsdls/product_bff_search.wsdl"
-    consumes:
-      - "wsdls/order_api.wsdl"
+version: 3
+systemUnderTest:
+  service:
+    $ref: "#/components/services/productSearchBffService"
+    runOptions:
+      $ref: "#/components/runOptions/productSearchBffServiceTest"
+    data:
+      examples:
+        - directories:
+            - wsdls/product_bff_search_examples
+dependencies:
+  services:
+    - service:
+        $ref: "#/components/services/orderApiService"
+        runOptions:
+          $ref: "#/components/runOptions/orderApiServiceMock"
+        data:
+          examples:
+            - directories:
+                - wsdls/order_api_examples
+
+components:
+  sources:
+    specmaticOrderContracts:
+      filesystem:
+        directory: .
+  services:
+    productSearchBffService:
+      definitions:
+        - definition:
+            source:
+              $ref: "#/components/sources/specmaticOrderContracts"
+            specs:
+              - wsdls/product_bff_search.wsdl
+    orderApiService:
+      definitions:
+        - definition:
+            source:
+              $ref: "#/components/sources/specmaticOrderContracts"
+            specs:
+              - wsdls/order_api.wsdl
+  runOptions:
+    productSearchBffServiceTest:
+      wsdl:
+        type: test
+        baseUrl: "{APP_URL:http://localhost:8080}"
+    orderApiServiceMock:
+      wsdl:
+        type: mock
+        baseUrl: "{APP_URL:http://localhost:9000}"
+
+specmatic:
+  governance:
+    successCriteria:
+      minCoveragePercentage: 100
+      maxMissedOperationsInSpec: 0
+      enforce: true

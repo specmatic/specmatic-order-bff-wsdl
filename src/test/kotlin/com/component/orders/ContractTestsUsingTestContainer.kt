@@ -1,8 +1,5 @@
 package com.component.orders
 
-import com.github.dockerjava.api.model.ExposedPort
-import com.github.dockerjava.api.model.PortBinding
-import com.github.dockerjava.api.model.Ports
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.condition.EnabledIf
@@ -18,25 +15,15 @@ import org.testcontainers.junit.jupiter.Testcontainers
 @EnabledIf(value = "isNonCIOrLinux", disabledReason = "Run only on Linux in CI; all platforms allowed locally")
 class ContractTestsUsingTestContainer {
     companion object {
-        private const val APPLICATION_HOST = "host.docker.internal"
-        private const val APPLICATION_PORT = 8080
-        private const val HTTP_STUB_PORT = 9000
 
         @JvmStatic
         fun isNonCIOrLinux(): Boolean = System.getenv("CI") != "true" || System.getProperty("os.name").lowercase().contains("linux")
 
         @Container
-        private val stubContainer: GenericContainer<*> =
+        private val mockContainer: GenericContainer<*> =
             GenericContainer("specmatic/specmatic")
-                .withCommand(
-                    "virtualize",
-                    "--examples=examples",
-                    "--port=$HTTP_STUB_PORT",
-                ).withCreateContainerCmdModifier { cmd ->
-                    cmd.hostConfig?.withPortBindings(
-                        PortBinding(Ports.Binding.bindPort(HTTP_STUB_PORT), ExposedPort(HTTP_STUB_PORT)),
-                    )
-                }.withExposedPorts(HTTP_STUB_PORT)
+                .withCommand("mock")
+                .withNetworkMode("host")
                 .withFileSystemBind(
                     "./wsdls",
                     "/usr/src/app/wsdls",
@@ -46,16 +33,19 @@ class ContractTestsUsingTestContainer {
                     "./specmatic.yaml",
                     "/usr/src/app/specmatic.yaml",
                     BindMode.READ_ONLY,
-                ).waitingFor(Wait.forHttp("/actuator/health").forStatusCode(200))
+                )
+                .withFileSystemBind(
+                    "./build/reports/specmatic",
+                    "/usr/src/app/build/reports/specmatic",
+                    BindMode.READ_WRITE,
+                )
+                .waitingFor(Wait.forHttp("/actuator/health").forStatusCode(200))
                 .withLogConsumer { print(it.utf8String) }
 
         private val testContainer: GenericContainer<*> =
             GenericContainer("specmatic/specmatic")
-                .withCommand(
-                    "test",
-                    "--host=$APPLICATION_HOST",
-                    "--port=$APPLICATION_PORT",
-                )
+                .withCommand("test",)
+                .withNetworkMode("host")
                 .withFileSystemBind(
                     "./wsdls",
                     "/usr/src/app/wsdls",
@@ -70,7 +60,6 @@ class ContractTestsUsingTestContainer {
                     "/usr/src/app/build/reports/specmatic",
                     BindMode.READ_WRITE,
                 ).waitingFor(Wait.forLogMessage(".*Tests run:.*", 1))
-                .withExtraHost("host.docker.internal", "host-gateway")
                 .withLogConsumer { print(it.utf8String) }
     }
 

@@ -58,12 +58,12 @@ Once you run the test the report should be available at `build/reports/specmatic
 ## Running the Specmatic WSDL Mock Server from Command Line using Docker
 1. On Unix and PowerShell terminals:
 ```shell
-docker run -p "9000:9000" -v "$(pwd):/usr/src/app" specmatic/specmatic stub "./wsdls/order_api.wsdl"
+docker run --rm --network host -v "$(pwd):/usr/src/app" specmatic/specmatic mock
 ```
 
 2. On Windows CMD Prompt:
 ```shell
-docker run -p "9000:9000" -v "%cd%:/usr/src/app" specmatic/specmatic stub "./wsdls/order_api.wsdl"
+docker run --rm --network host  -v "%cd%:/usr/src/app" specmatic/specmatic mock
 ```
 
 Now we can verify if the stub server is running
@@ -101,14 +101,19 @@ Please refer to documentation for format of the [example file](https://docs.spec
 
 You can also run the same WSDL spec as a test against the mock server.
 
+### Start the bff app
+```shell
+./gradlew bootRun
+```
+
 1. On Unix and PowerShell terminals:
 ```shell
-docker run --net host -v "$(pwd):/usr/src/app" specmatic/specmatic test "./wsdls/order_api.wsdl" --port 9000
+docker run --rm --network host -v "$(pwd):/usr/src/app" specmatic/specmatic test
 ```
 
 2. On Windows CMD Prompt:
 ```shell
-docker run --net host -v "%cd%:/usr/src/app" specmatic/specmatic test "./wsdls/order_api.wsdl" --port 9000
+docker run --rm --network host -v "%cd%:/usr/src/app" specmatic/specmatic test
 ```
 
 The HTML API Coverage Report will be available at `build/reports/specmatic/html/index.html`.
