@@ -53,7 +53,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'jakarta.activation:jakarta.activation-api:2.1.4'
-    implementation 'org.glassfish.jaxb:jaxb-runtime:4.0.6'
+    implementation 'org.glassfish.jaxb:jaxb-runtime:4.0.7'
     implementation 'jakarta.validation:jakarta.validation-api:3.1.1'
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
     implementation 'jakarta.xml.soap:jakarta.xml.soap-api:3.0.2'
