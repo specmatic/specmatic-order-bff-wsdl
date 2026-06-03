@@ -53,7 +53,7 @@
 
 Please refer to [ContractTest.kt](src/test/kotlin/com/component/orders/ContractTest.kt)
 
-Once you run the test the report should be available at `build/reports/specmatic/html/index.html`.
+Once you run the test the report should be available at `build/reports/specmatic/test/html/index.html`.
 
 ## Running the Specmatic WSDL Mock Server from Command Line using Docker
 1. On Unix and PowerShell terminals:
@@ -116,5 +116,5 @@ docker run --rm --network host -v "$(pwd):/usr/src/app" specmatic/specmatic test
 docker run --rm --network host -v "%cd%:/usr/src/app" specmatic/specmatic test
 ```
 
-The HTML API Coverage Report will be available at `build/reports/specmatic/html/index.html`.
+The HTML API Coverage Report will be available at `build/reports/specmatic/test/html/index.html`.
 
