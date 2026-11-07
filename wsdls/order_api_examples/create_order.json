@@ -13,6 +13,6 @@
     "headers": {
       "Content-Type": "text/xml"
     },
-    "body": "<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\"><SOAP-ENV:Header/><SOAP-ENV:Body><OrderId><id>10</id></OrderId></SOAP-ENV:Body></SOAP-ENV:Envelope>"
+    "body": "<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\"><SOAP-ENV:Header/><SOAP-ENV:Body><o:OrderId xmlns:o=\"http://www.example.com/orders\"><id>10</id></o:OrderId></SOAP-ENV:Body></SOAP-ENV:Envelope>"
   }
 }
